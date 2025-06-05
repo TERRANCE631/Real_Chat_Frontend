@@ -88,7 +88,7 @@ export function NavBar({ menuOpen, setMenuOpen }) {
             onClick={toggleAudioIndicater}
             className="ml-10 flex items-center space-x-0.5 md:hidden"
           >
-            <audio ref={audioElementRef} loop src="" />
+            <audio ref={audioElementRef} loop src="./audio/loop.mp3" />
 
             {[1, 2, 3, 4].map((bar) => (
               <div
