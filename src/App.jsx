@@ -1,40 +1,32 @@
-import { useState } from "react";
-import {
-  About,
-  Contact,
-  Home,
-  LoadingScreen,
-  MobileMenu,
-  NavBar,
-  Projects,
-  ToTopBtn,
-} from "./components";
-import { useGlobalState } from "./components/Context/Context";
+import { useEffect } from "react";
+import { Navbar } from "./Layout/Navbar";
+import { AllRoutes } from "./Routes/AllRoutes";
+import { useAuthStore } from "./Store/useAuthStore";
+import { Loader } from "lucide-react";
 
 function App() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { isLoading } = useGlobalState();
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+
+  useEffect(() => {
+    checkAuth()
+  }, [checkAuth]);
+
+  console.log({ authUser });
+
+  if (isCheckingAuth && !authUser) return (
+    <div className="flex h-screen items-center justify-center">
+      <Loader className="size-10 animate-spin text-purple-700" />
+    </div>
+  );
 
   return (
     <section>
-      <main className="reletive min-h-screen w-screen overflow-x-hidden relative z-1 overflow-hidden">
-        {!isLoading && <LoadingScreen />}
-        <div
-          className={`min-h-screen transition-opacity duration-700
-          ${isLoading ? "opacity-100" : "opacity-0"} 
-        bg-black text-gray-100`}
-        >
-          <NavBar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          <MobileMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-          <Home />
-          <About />
-          <Projects />
-          <Contact />
-        </div>
-        <ToTopBtn />
+      <Navbar />
+      <main className="">
+        <AllRoutes authUser={authUser} />
       </main>
     </section>
   );
-}
+};
 
 export default App;
