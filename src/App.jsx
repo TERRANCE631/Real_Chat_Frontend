@@ -3,9 +3,13 @@ import { Navbar } from "./Layout/Navbar";
 import { AllRoutes } from "./Routes/AllRoutes";
 import { useAuthStore } from "./Store/useAuthStore";
 import { Loader } from "lucide-react";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
+
+  console.log(onlineUsers);
 
   useEffect(() => {
     checkAuth()
@@ -14,17 +18,19 @@ function App() {
   console.log({ authUser });
 
   if (isCheckingAuth && !authUser) return (
-    <div className="flex h-screen items-center justify-center">
-      <Loader className="size-10 animate-spin text-purple-700" />
+    <div className="flex flex-col gap-2 h-screen items-center bg-gradient-to-br from-slate-900 to-slate-800 text-white justify-center">
+      <span><Loader className="size-10 animate-spin" /></span>
+      <span className="text-lg">Loading...</span>
     </div>
   );
 
   return (
-    <section>
+    <section className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
       <Navbar />
       <main className="">
         <AllRoutes authUser={authUser} />
       </main>
+      <ToastContainer position="top-center" hideProgressBar theme="dark" />
     </section>
   );
 };

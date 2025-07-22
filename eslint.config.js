@@ -36,6 +36,9 @@ export default [
         { allowConstantExport: true },
       ],
       "react/prop-types": "off",
+      "tailwindcss/classnames-order": "off" ,
+      "tailwindcss/no-unnecessary-arbitrary-value": "off",
+      "tailwindcss/no-custom-classname": "off"
     },
   },
 ];

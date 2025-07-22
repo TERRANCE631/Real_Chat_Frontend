@@ -3,11 +3,9 @@
 @tailwind utilities;
 
 main{
-    max-width: 1280px;
     margin: auto;
     overflow: hidden;
     min-height: 90vh;
-    padding: 10px;
     font-family: "General Sans", Helvetica, Arial, Lucida, sans-serif;
 };
 
