@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useChatStore } from "../Store/useChatStore"
 import { ChatHeader } from "./ChatHeader";
 import { MessageInput } from "./MessageInput";
@@ -11,6 +11,7 @@ export const ChatContainer = () => {
     const { authUser, checkAuth } = useAuthStore();
     const messageRef = useRef(null);
     const [isTyping, setIsTyping] = useState(false); // ✅ typing state
+
     useEffect(() => {
         getMessages(selectedUser.id);
         subscribeToMessages()
@@ -83,6 +84,6 @@ export const ChatContainer = () => {
             <MessageInput setIsTyping={setIsTyping} />
         </div>
     )
-}
+};
 
 
