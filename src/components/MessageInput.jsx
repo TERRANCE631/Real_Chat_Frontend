@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { useChatStore } from "../Store/useChatStore";
 import { Send } from "lucide-react";
 
-export const MessageInput = () => {
+export const MessageInput = ({ handleChange }) => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
     const { sendMessage } = useChatStore();
@@ -41,7 +41,7 @@ export const MessageInput = () => {
                     className="w-full input input-bordered border-base-100 rounded-md input-md outline-none bg-transparent text-white placeholder-gray-400"
                     placeholder="Type message here..."
                     value={text}
-                    onChange={(e) => setText(e.target.value)}
+                    onChange={handleChange}
                     autoFocus // 👈 ensures it's focused when component loads
                 />
                 <button
