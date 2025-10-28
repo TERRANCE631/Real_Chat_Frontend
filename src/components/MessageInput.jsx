@@ -10,15 +10,23 @@ export const MessageInput = () => {
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
-        if (!text.trim() || isSending) return;
+
+        // Trim text and check for empty message or ongoing sending
+        const messageText = text.trim();
+        if (!messageText || isSending) return;
 
         try {
             setIsSending(true);
-            await sendMessage({ message: text.trim() });
+
+            // Send the message via chat store
+            await sendMessage({ message: messageText });
+
+            // Clear input and keep it focused
             setText("");
-            inputRef.current?.focus(); // 👈 keeps input focused after sending
+            inputRef.current?.focus();
+
         } catch (error) {
-            console.log("Failed to send message:", error.message);
+            console.error("Failed to send message:", error.message);
         } finally {
             setIsSending(false);
         }
@@ -46,5 +54,5 @@ export const MessageInput = () => {
                 </button>
             </form>
         </div>
-    );  
+    );
 };
