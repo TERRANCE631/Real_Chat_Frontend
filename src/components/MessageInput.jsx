@@ -2,11 +2,20 @@ import { useState, useRef } from "react";
 import { useChatStore } from "../Store/useChatStore";
 import { Send } from "lucide-react";
 
-export const MessageInput = ({ handleChange }) => {
+export const MessageInput = ({ setIsTyping }) => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
+
     const { sendMessage } = useChatStore();
     const inputRef = useRef(null);
+
+    const handleChange = (e) => {
+        setText(e.target.value);
+        setIsTyping(true);
+
+        clearTimeout(window.typingTimeout);
+        window.typingTimeout = setTimeout(() => setIsTyping(false), 800);
+    };
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
