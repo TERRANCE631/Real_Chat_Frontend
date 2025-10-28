@@ -116,8 +116,8 @@ export const useAuthStore = create((set, get) => ({
 
         const socket = io(BASE_URL, {
             withCredentials: true,
-            transports: ["websocket", "polling"], // important for Render/Netlify hosting
-            query: { userID: authUser.id }
+            transports: ["websocket"], // important for Render/Netlify hosting
+            query: { userID: authUser?.id }
         });
         socket.connect()
         set({ socket: socket });
