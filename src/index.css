@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-main{
+/* main{
     margin: auto;
     overflow: hidden;
     min-height: 90vh;
     font-family: "General Sans", Helvetica, Arial, Lucida, sans-serif;
-};
+}; */
 

@@ -25,7 +25,7 @@ export const LogInPage = () => {
           <div className="text-center mb-8">
             <div className="flex flex-col items-center gap-2 group">
               <div className="size-12 rounded-xl bg-white/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
-                <MessageSquare className="size-6" />
+                <MessageSquare className="size-6 animate-pulse" />
               </div>
               <h1 className="text-2xl font-bold mt-2">Welcome back</h1>
               <p className="text-slate-300">Sign in to your account</p>
@@ -40,7 +40,7 @@ export const LogInPage = () => {
                 </div>
                 <input
                   type="text"
-                  className="w-full pl-10 border border-white/30 outline-none bg-transparent p-2 rounded-md tracking-wider"
+                  className="w-full pl-10 border border-white/30 focus:border-blue-700 placeholder:text-white/90 outline-none bg-transparent p-2 rounded-md tracking-wider"
                   placeholder="Terrance@example.com"
                   value={formdata.email}
                   onChange={(e) => setFormdata({ ...formdata, email: e.target.value })}
@@ -65,26 +65,26 @@ export const LogInPage = () => {
 
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="w-full pl-10 border border-white/30 outline-none bg-transparent p-2 rounded-md tracking-wider"
+                  className="w-full pl-10 border border-white/30 focus:border-blue-700 placeholder:text-white/90 outline-none bg-transparent p-2 rounded-md tracking-wider"
                   placeholder="******************"
                   value={formdata.password}
                   onChange={(e) => setFormdata({ ...formdata, password: e.target.value })}
                 />
               </div>
             </div>
-            <button type="submit" className="w-full flex gap-2 items-center justify-center bg-blue-700 p-2 rounded-md bg-opacity-85" disabled={isLoggingIn}>
+            <button type="submit" className="w-full flex gap-2 items-center justify-center hover:bg-blue-600 bg-blue-700 p-2 rounded-md bg-opacity-85" disabled={isLoggingIn}>
               {isLoggingIn ? (
                 <>
                   <Loader2 className="size-6 animate-spin" />
                   Loading...
                 </>
-              ) : ("Sign in")}
+              ) : (<div className="">Sign in</div>)}
             </button>
           </form>
           <div className="text-center">
             <p className="text-base-content/60">
               Do not have an account?{" "}
-              <Link className="text-blue-400 underline" to="/signup">
+              <Link className="text-blue-400 hover:text-blue-300 tracking-wider underline" to="/signup">
                 Create account
               </Link>
             </p>

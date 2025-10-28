@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useChatStore } from "../Store/useChatStore"
 import { SidebarSkeleton } from "./Skeletons/SidebarSkeleton";
 import { Users } from "lucide-react";
@@ -7,8 +7,9 @@ import { useAuthStore } from "../Store/useAuthStore";
 export const Sidebar = () => {
     const { isUsersLoading, getUsers, users, selectedUser, setSelectedUser } = useChatStore();
     const { onlineUsers } = useAuthStore()
-    console.log(onlineUsers);
-    
+    const [showOnlineUsersOnly, setShowOnlineUsersOnly] = useState(false);
+    const filteredUsers = showOnlineUsersOnly ? users.filter((user) => onlineUsers.includes(`${user.id}`)) : users;
+
     useEffect(() => {
         getUsers()
     }, [getUsers]);
@@ -16,25 +17,37 @@ export const Sidebar = () => {
     if (isUsersLoading) return <SidebarSkeleton />;
 
     return (
-        <aside className="h-full w-20 lg:w-72 border-r border-white/20 flex flex-col transition-all duration-200">
-            <div className="border-b border-white/10 w-full flex gap-2 items-center p-5">
-                <Users className="size-6" />
-                <span className="font-medium hidden lg:block">Contacts</span>
+        <aside className="h-full w-20 lg:w-72 bg-black bg-opacity-20 border-r border-white/20 flex flex-col transition-all duration-200">
+            <div className="border-b border-white/10 w-full gap-2 items-center p-5">
+                <div className="flex gap-2">
+                    <Users className="size-6" />
+                    <span className="font-medium hidden lg:block">Contacts</span>
+                </div>
+                {/* TODO: online filter toggle */}
+                <div className="mt-3 hidden lg:flex items-center gap-2">
+                    <label className="cursor-pointer flex items-center gap-2">
+                        <input
+                            checked={showOnlineUsersOnly}
+                            type="checkbox"
+                            onChange={(e) => setShowOnlineUsersOnly(e.target.checked)}
+                            className="checkbox checkbox-sm"
+                        />
+                        <span className="text-sm">Online users</span>
+                    </label>
+                    <span className="text-xs text-zink-500">({onlineUsers.length - 1} online)</span>
+                </div>
             </div>
-            {/* TODO: online filter toggle */}
 
             <div className="overflow-y-auto w-full">
-                {users.map((user) => (
-                    <button onClick={() => setSelectedUser(user)} className={`w-full p-2 flex items-center gap-3 hover:bg-white/10 transition-colors ${selectedUser?.id === user.id ? "bg-slate-700 " : ""}`} key={user.id}>
+                {filteredUsers.map((user) => (
+                    <button onClick={() => setSelectedUser(user)} className={`w-full p-2 flex items-center gap-3 hover:bg-base-100 transition-colors ${selectedUser?.id === user.id ? "bg-base-100 " : ""}`} key={user.id}>
 
                         <div className="relative mx-auto lg:mx-0">
-                            <div className="relative chat-image avatar size-[3rem] border-2 border-blue-700 rounded-full" style={{
-                                backgroundColor: "yellowgreen"
-                            }}>
-                                <img className="" src="/assets/profile.png" alt={user.username} />
+                            <div className={`size-14 text-xl rounded-full flex items-center justify-center text-primary-content bg-black bg-opacity-20 font-medium shadow-inner shadow-green-700 border-green-500 border-2`} style={{ backgroundColor: `${user.userIdColor}` }}>
+                                {user.username.slice(0, 1).toUpperCase()}
                             </div>
                             {onlineUsers.includes(`${user.id}`) && (
-                                <span className="absolute bottom-0 right-0 size-3 bg-green-500 rounded-full ring-2 ring-white" />
+                                <span className="absolute bottom-0 right-1 size-3 bg-green-500 shadow-inner shadow-green-800 rounded-full ring-2 ring-white/80" />
                             )}
                         </div>
 
@@ -46,6 +59,10 @@ export const Sidebar = () => {
                         </div>
                     </button>
                 ))}
+
+                {filteredUsers.length === 0 &&
+                    <div className="text-center text-zink-500 py-4">No online users found</div>
+                }
             </div>
         </aside>
     )

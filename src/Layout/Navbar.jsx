@@ -7,32 +7,32 @@ export const Navbar = () => {
   const navigate = useNavigate()
 
   return (
-    <header className="shadow-gray-700 shadow-md fixed w-full top-0 z-40 backdrop-blur-lg">
+    <header className="shadow-gray-700 bg-black bg-opacity-20 py-1 shadow-md fixed w-full top-0 z-40 backdrop-blur-lg">
       <div className="container mx-auto px-4 h-12">
         <div className="flex items-center justify-between h-full">
           <div className="flex gap-8 items-center">
-            <Link to="/" className="flex items-center gap-1">
-              <div className="flex items-center rounded-md hover:opacity-70 duration-500 transition-all">
-                <MessageSquare className="size-9 text-blue-500" />
+            <Link to="/" className="flex items-center gap-1 hover:opacity-80">
+              <div className="flex items-center rounded-md duration-500 transition-all">
+                <MessageSquare className="size-9 text-blue-200" />
               </div>
-              <h1 className="text-lg font-bold tracking-wider">Chatty</h1>
+              <h1 className="text-lg font-circular-web font-semibold text-blue-200 tracking-wider">Chatty</h1>
             </Link>
           </div>
 
           <div className="items-center flex gap-4">
-            <Link to="/settings" className="text-sm bg-slate-900 py-1.5 px-2 border-white/20 border rounded-md flex items-center gap-2 transition-colors">
+            <Link to="/settings" className="text-sm bg-black bg-opacity-20 hover:bg-black/40 py-1.5 px-2 border-white/20 border rounded-md flex items-center gap-2 transition-colors duration-300">
               <span><Settings className="size-5" /></span>
               <span className="hidden sm:inline">Settings</span>
             </Link>
 
             {authUser &&
               <div className="flex gap-4">
-                <Link to="/profile" className="text-sm bg-slate-900 py-1.5 px-2 border-white/20 border rounded-md flex items-center gap-2 transition-colors">
+                <Link to="/profile" className="text-sm bg-black bg-opacity-20 hover:bg-black/40 py-1.5 px-2 border-white/20 border rounded-md flex items-center gap-2 transition-colors duration-300">
                   <span><UserCog className="size-5" /></span>
                   <span className="hidden sm:inline">Profile</span>
                 </Link>
 
-                <button type="button" className="text-sm flex gap-2 bg-rose-900 px-2 rounded-md items-center" onClick={() => { loggout(); navigate("/") }}>
+                <button type="button" className="text-sm flex gap-2 px-2 rounded-md bg-white/10 hover:bg-black/10 items-center" onClick={() => { loggout(); navigate("/") }}>
                   <span><LogOut className="size-5" /></span>
                   <span className="hidden sm:inline">Logout</span>
                 </button>

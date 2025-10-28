@@ -38,7 +38,8 @@ export default [
       "react/prop-types": "off",
       "tailwindcss/classnames-order": "off" ,
       "tailwindcss/no-unnecessary-arbitrary-value": "off",
-      "tailwindcss/no-custom-classname": "off"
+      "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/migration-from-tailwind-2": "off"
     },
   },
 ];

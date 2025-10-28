@@ -7,16 +7,12 @@ export const ChatHeader = () => {
     const { onlineUsers } = useAuthStore();
 
     return (
-        <div className="p-2.5 border-b border-base-300">
+        <div className="p-2.5 border-b border-white/20 bg-black bg-opacity-20">
             <div className="flex items-center justify-between">
                 <div className="flex gap-3">
 
-                    <div className="size-10 rounded-full relative">
-                        <div className="relative size-[2.6rem] border-2 border-blue-700 rounded-full" style={{
-                            backgroundColor: "yellowgreen"
-                        }}>
-                            <img className="" src="/assets/profile.png" alt="" />
-                        </div>
+                    <div className={`size-10 text-xl rounded-full flex items-center justify-center text-primary-content font-medium bg-black bg-opacity-20 shadow-inner shadow-green-700 ${onlineUsers.includes(`${selectedUser.id}`) ? "border-green-500 border-2" : ""}`} style={{ backgroundColor: `${selectedUser.userIdColor}` }}>
+                        {selectedUser.username.slice(0, 1).toUpperCase()}
                     </div>
                     <div className="">
                         <h3 className="">{selectedUser.username}</h3>
@@ -24,7 +20,6 @@ export const ChatHeader = () => {
                             {onlineUsers.includes(`${selectedUser.id}`) ? "Online" : "Offline"}
                         </p>
                     </div>
-
                 </div>
                 <button onClick={() => setSelectedUser(null)}>
                     <X />

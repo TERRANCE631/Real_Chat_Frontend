@@ -5,11 +5,12 @@ import { useAuthStore } from "./Store/useAuthStore";
 import { Loader } from "lucide-react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useThemeStore } from "./Store/useThemeStore";
 
 function App() {
-  const { authUser, checkAuth, isCheckingAuth, onlineUsers } = useAuthStore();
-
-  console.log(onlineUsers);
+  const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
+  const { theme } = useThemeStore();
+  console.log(theme);
 
   useEffect(() => {
     checkAuth()
@@ -17,15 +18,15 @@ function App() {
 
   console.log({ authUser });
 
-  if (isCheckingAuth && !authUser) return (
-    <div className="flex flex-col gap-2 h-screen items-center bg-gradient-to-br from-slate-900 to-slate-800 text-white justify-center">
+  if (isCheckingAuth ) return (
+    <div className={`bg-${theme} flex flex-col gap-2 h-screen items-center text-white justify-center`}>
       <span><Loader className="size-10 animate-spin" /></span>
       <span className="text-lg">Loading...</span>
     </div>
   );
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+    <section className={`min-h-screen bg-${theme}`}>
       <Navbar />
       <main className="">
         <AllRoutes authUser={authUser} />

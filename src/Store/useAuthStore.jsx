@@ -17,6 +17,8 @@ export const useAuthStore = create((set, get) => ({
 
     checkAuth: async () => {
         try {
+            set({ isCheckingAuth: true });
+
             const res = await axiosInstance.get("/auth/checkauth");
             set({ authUser: res.data });
             get().connectSocket();
@@ -33,14 +35,16 @@ export const useAuthStore = create((set, get) => ({
         set({ isSigningUp: true })
         try {
             const res = await axiosInstance.post("/auth/signup", data);
+            const { authUser } = get();
             const user = res.data
             set({ authUser: user.user });
-            toast.success("Account created successfully")
             get().connectSocket();
 
             if (user.message) {
                 toast.warn(user.message);
-            } else if (user.user) {
+            }
+
+            if (authUser) {
                 toast.success("Account created successfully");
             };
 
@@ -62,7 +66,9 @@ export const useAuthStore = create((set, get) => ({
 
             if (user.message) {
                 toast.error(user.message);
-            } else {
+            }
+
+            if (!user.message) {
                 toast.success("You have successfully logged in");
             };
 
@@ -82,7 +88,7 @@ export const useAuthStore = create((set, get) => ({
             get().disconnectSocket();
 
         } catch (error) {
-            toast.error(error.responce.data.message);
+            console.log(error.responce.data.message);
         };
     },
 
@@ -92,7 +98,7 @@ export const useAuthStore = create((set, get) => ({
         try {
             if (data !== "") {
                 await axiosInstance.put("/auth/edit/username", data);
-                toast.success(`New username is ${data}`);
+                toast.success(`Username has been updated`);
                 await checkAuth();
             } else { toast.warn("No changes applied") };
 

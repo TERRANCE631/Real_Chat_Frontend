@@ -1,15 +1,6 @@
-<div align="center">
-  <h3 align="center">An Awwwards Winning Website</h3>
-
-   <div align="center">
-     A step by step detailed tutorial from <a href="https://www.youtube.com/@javascriptmastery/videos" target="_blank"><b>JavaScript Mastery</b></a> YouTube.
-    </div>
-</div>
-
 ## <a name="tech-stack">⚙️ Tech Stack Used</a>
 
-- GSAP
-- React.js
+- Vite
 - Tailwind CSS
 
 ## <a name="quick-start">🤸 Quick Start The Project</a>

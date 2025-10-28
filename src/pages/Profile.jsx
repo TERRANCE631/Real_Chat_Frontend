@@ -11,29 +11,27 @@ export const Profile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        
+
         editUsername(formdata, setEdit, checkAuth);
     };
 
     return (
         <div className="pt-20 w-full">
             <div className="max-w-2xl mx-auto p-4 py-8">
-                <div className="bg-white/5 rounded-lg p-6 space-y-8">
+                <div className="bg-black bg-opacity-20 rounded-lg p-6 space-y-8">
                     <div className="text-center">
                         <h1 className="text-4xl font-semiold">Profile</h1>
-                        <p className="mt-2 text-gray-200">Your profile information</p>
+                        <p className="mt-2 text-gray-100">Your profile information</p>
                     </div>
 
                     {/* Avatar section */}
                     <div className="flex flex-col items-center gap-4">
-                        <div className="relative size-[9rem] border-4 border-blue-700 rounded-full" style={{
-                            backgroundColor: "yellowgreen"
-                        }}>
-                            <img className="" src="/assets/profile.png" alt="" />
+                        <div className={`size-[8rem] text-6xl rounded-full flex items-center justify-center text-primary-content font-medium shadow-inner shadow-green-700 ${"border-4 border-green-500"}`} style={{ backgroundColor: `${authUser.userIdColor}` || "gold" }}>
+                            {authUser.username.slice(0, 1).toUpperCase()}
                         </div>
                         <div className="space-y-6 w-full">
                             <div className="space-y-1.5">
-                                <div className="text-sm text-zinc-400 flex items-center gap-2">
+                                <div className="text-sm flex items-center gap-2">
                                     <span><User className="size-4" /></span>
                                     <span className="flex items-center gap-2">
                                         <span>Username</span>
@@ -47,8 +45,8 @@ export const Profile = () => {
 
                                 {edit && <div className="form-control">
                                     <div className="relative">
-                                        <button type="submit" onClick={handleSubmit} className="absolute bg-blue-700 duration-500 transition-all inset-y-0 right-0 pl-4 flex items-center rounded-r-md border-white/20 border-2">
-                                            <div className="size-5 text-base-content/40 text-slate-900 pr-14 rounded-r-md" >
+                                        <button type="submit" onClick={handleSubmit} className="absolute bg-blue-700 duration-500 transition-all inset-y-0 right-0 flex items-center rounded-r-md border btn h-full border-white/20">
+                                            <div className="size-5 flex justify-center items-center text-base-content/40 px-6 rounded-r-md" >
                                                 {isEditing ? <div className=""><Loader className="size-6 animate-spin text-white flex justify-center ml-2" /></div> : <div className="">Done</div>}
                                             </div>
                                         </button>
@@ -63,7 +61,7 @@ export const Profile = () => {
                                 </div>}
                             </div>
                             <div className="space-y-1.5">
-                                <div className="text-sm text-zinc-400 flex items-center gap-2">
+                                <div className="text-sm flex items-center gap-2">
                                     <span><Mail className="size-4" /></span>
                                     <span>Email address</span>
                                 </div>
@@ -77,13 +75,13 @@ export const Profile = () => {
                         <div className="space-y-3 text-sm">
                             <div className="flex justify-between items-center py-2 border-b border-white/20">
                                 <span>Member since:</span>
-                                <span className="tracking-widest">{user?.created_at || authUser.created_at}</span>
+                                <span className="tracking-widest">{user?.created_at.split("T")[0] || authUser.created_at.split("T")[0]}</span>
                             </div>
                         </div>
                         <div className="space-y-3 text-sm">
                             <div className="flex justify-between items-center py-2">
                                 <span>Account status:</span>
-                                <span className="text-blue-700 tracking-widest">Actvie</span>
+                                <span className="text-green-500 font-semibold tracking-widest">Actvie</span>
                             </div>
                         </div>
                     </div>
