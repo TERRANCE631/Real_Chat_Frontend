@@ -15,7 +15,7 @@ export const MessageInput = () => {
 
         try {
             setIsSending(true);
-            await sendMessage({ message: message });
+            await sendMessage(message);
 
             setText("");
             inputRef.current?.focus(); // 👈 keeps input focused after sending
