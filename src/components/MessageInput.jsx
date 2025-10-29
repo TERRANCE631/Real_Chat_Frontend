@@ -2,40 +2,23 @@ import { useState, useRef } from "react";
 import { useChatStore } from "../Store/useChatStore";
 import { Send } from "lucide-react";
 
-export const MessageInput = ({ setIsTyping }) => {
+export const MessageInput = () => {
     const [text, setText] = useState("");
     const [isSending, setIsSending] = useState(false);
-
     const { sendMessage } = useChatStore();
     const inputRef = useRef(null);
 
-    const handleChange = (e) => {
-        setText(e.target.value);
-        setIsTyping(true);
-
-        clearTimeout(window.typingTimeout);
-        window.typingTimeout = setTimeout(() => setIsTyping(false), 800);
-    };
-
     const handleSendMessage = async (e) => {
         e.preventDefault();
-
-        // Trim text and check for empty message or ongoing sending
-        const messageText = text.trim();
-        if (!messageText || isSending) return;
+        if (!text.trim() || isSending) return;
 
         try {
             setIsSending(true);
-
-            // Send the message via chat store
-            await sendMessage({ message: messageText });
-
-            // Clear input and keep it focused
+            await sendMessage({ message: text.trim() });
             setText("");
-            inputRef.current?.focus();
-
+            inputRef.current?.focus(); // 👈 keeps input focused after sending
         } catch (error) {
-            console.error("Failed to send message:", error.message);
+            console.log("Failed to send message:", error.message);
         } finally {
             setIsSending(false);
         }
@@ -50,7 +33,7 @@ export const MessageInput = ({ setIsTyping }) => {
                     className="w-full input input-bordered border-base-100 rounded-md input-md outline-none bg-transparent text-white placeholder-gray-400"
                     placeholder="Type message here..."
                     value={text}
-                    onChange={handleChange}
+                    onChange={(e) => setText(e.target.value)}
                     autoFocus // 👈 ensures it's focused when component loads
                 />
                 <button
@@ -63,5 +46,5 @@ export const MessageInput = ({ setIsTyping }) => {
                 </button>
             </form>
         </div>
-    );
+    );  
 };

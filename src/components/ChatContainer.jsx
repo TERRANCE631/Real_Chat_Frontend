@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useChatStore } from "../Store/useChatStore"
 import { ChatHeader } from "./ChatHeader";
 import { MessageInput } from "./MessageInput";
@@ -10,7 +10,6 @@ export const ChatContainer = () => {
     const { messages, getMessages, isMessagesLoading, unSubscribeToMessages, selectedUser, subscribeToMessages } = useChatStore();
     const { authUser, checkAuth } = useAuthStore();
     const messageRef = useRef(null);
-    const [isTyping, setIsTyping] = useState(false); // ✅ typing state
 
     useEffect(() => {
         getMessages(selectedUser.id);
@@ -62,28 +61,9 @@ export const ChatContainer = () => {
                     </div>
                 ))}
             </div>
-
-            {isTyping && (
-                <div className="absolute bottom-20 left-4 flex items-center gap-2 transition-all duration-300 ease-out">
-                    <div
-                        className="size-10 rounded-full bg-black bg-opacity-20 flex items-center justify-center shadow-inner shadow-green-700 border-green-500 border-2"
-                        style={{ backgroundColor: selectedUser.userIdColor }}
-                    >
-                        {selectedUser.username[0].toUpperCase()}
-                    </div>
-                    <div className="flex items-center justify-center w-20 h-10 bg-black/50 rounded-full px-2">
-                        <div className="flex space-x-1">
-                            <span className="size-2 bg-green-500 rounded-full animate-bounce"></span>
-                            <span className="size-2 bg-green-500 rounded-full animate-bounce delay-75"></span>
-                            <span className="size-2 bg-green-500 rounded-full animate-bounce delay-150"></span>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            <MessageInput setIsTyping={setIsTyping} />
+            <MessageInput />
         </div>
     )
-};
+}
 
 

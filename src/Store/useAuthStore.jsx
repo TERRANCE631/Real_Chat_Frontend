@@ -119,6 +119,7 @@ export const useAuthStore = create((set, get) => ({
             transports: ["websocket"], // important for Render/Netlify hosting
             query: { userID: authUser?.id }
         });
+        
         socket.connect()
         set({ socket: socket });
 
