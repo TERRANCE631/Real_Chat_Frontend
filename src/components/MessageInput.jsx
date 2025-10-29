@@ -7,7 +7,6 @@ export const MessageInput = () => {
     const [isSending, setIsSending] = useState(false);
     const { sendMessage } = useChatStore();
     const inputRef = useRef(null);
-    const message = text.trim();
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -15,8 +14,7 @@ export const MessageInput = () => {
 
         try {
             setIsSending(true);
-            await sendMessage(message);
-
+            await sendMessage(text.trim());
             setText("");
             inputRef.current?.focus(); // 👈 keeps input focused after sending
         } catch (error) {
@@ -34,13 +32,13 @@ export const MessageInput = () => {
                     type="text"
                     className="w-full input input-bordered border-base-100 rounded-md input-md outline-none bg-transparent text-white placeholder-gray-400"
                     placeholder="Type message here..."
-                    value={message}
+                    value={text}
                     onChange={(e) => setText(e.target.value)}
                     autoFocus // 👈 ensures it's focused when component loads
                 />
                 <button
                     type="submit"
-                    disabled={!message || isSending}
+                    disabled={!text.trim() || isSending}
                     className={`border-2 border-white/30 btn btn-base-100 rounded-md flex items-center justify-center ${isSending ? "opacity-50 cursor-not-allowed" : "hover:border-white/60"
                         }`}
                 >
